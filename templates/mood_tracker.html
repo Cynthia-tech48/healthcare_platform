@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mood Tracker</h2>
+<p>Log a quick mood score (1 = very low, 10 = very high). Tracking regularly helps you notice patterns over time.</p>
+
+<form method="POST">
+  <label for="mood_score">Mood score (1–10)</label>
+  <input type="number" id="mood_score" name="mood_score" min="1" max="10" required>
+
+  <label for="note">Note (optional)</label>
+  <textarea id="note" name="note" rows="2" placeholder="How are you feeling?"></textarea>
+
+  <button type="submit">Record Mood</button>
+</form>
+
+<section>
+  <h3>Recent Mood Entries</h3>
+
+  <div>
+    <canvas id="moodChart"></canvas>
+  </div>
+
+  <ul>
+    {% for e in entries %}
+      <li>
+        {{ e.entry_date.strftime('%Y-%m-%d') }} — score: {{ e.mood_score }}
+        {% if e.note %} — {{ e.note }}{% endif %}
+      </li>
+    {% else %}
+      <li>No entries yet — add your first mood!</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<script>
+  fetch('{{ url_for("api_mood_entries") }}')
+    .then(r => r.json())
+    .then(data => {
+      const labels = data.map(d => d.date);
+      const values = data.map(d => d.score);
+      const ctx = document.getElementById('moodChart').getContext('2d');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Mood Score',
+            data: values
+          }]
+        }
+      });
+    });
+</script>
+{% endblock %}

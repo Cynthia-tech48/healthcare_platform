@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🩺 Ask a Doctor</h2>
+
+<p>Have a health concern? Submit your question below, and one of our doctors will provide guidance. 
+Remember, this platform is for general advice — always seek emergency care if needed.</p>
+
+<form method="POST" class="ask-doctor-form">
+  <label for="patient">Your Name:</label><br>
+  <input type="text" id="patient" name="patient" placeholder="Enter your name" required><br><br>
+
+  <label for="question">Your Question:</label><br>
+  <textarea id="question" name="question" rows="4" placeholder="Type your health question here..." required></textarea><br><br>
+
+  <button type="submit">📩 Submit Question</button>
+</form>
+
+<hr>
+
+<h3>💬 Recent Questions from Users</h3>
+{% if questions %}
+  <ul class="questions-list">
+    {% for q in questions %}
+      <li>
+        <b>{{ q.patient }}</b> asked:  
+        <blockquote>{{ q.question }}</blockquote>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No questions yet. Be the first to ask! ✨</p>
+{% endif %}
+
+<section class="health-reminder">
+  <h3>💡 Wellness Reminder</h3>
+  <p>Asking questions is the first step toward better health. Don’t ignore small symptoms — 
+  early consultation can prevent bigger issues later.</p>
+</section>
+{% endblock %}

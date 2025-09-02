@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Appointments</h2>
+<table>
+    <tr>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Reason</th>
+    </tr>
+    {% for appt in appointments %}
+    <tr>
+        <td>{{ appt.patient_name }}</td>
+        <td>{{ appt.doctor_name }}</td>
+        <td>{{ appt.appointment_date }}</td>
+        <td>{{ appt.appointment_time }}</td>
+        <td>{{ appt.reason }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Self-Assessment{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card p-4">
+        <h1 class="text-center mb-4">Mental Health Self-Assessment</h1>
+        <p class="lead text-center">Take a moment to check in with yourself. This short assessment can help you reflect on your current mood and well-being.</p>
+        <hr>
+
+        <h2 class="mt-4">How have you been feeling lately?</h2>
+        <div class="mb-3">
+            <p>1. Over the last two weeks, how often have you felt down, depressed, or hopeless?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q1" id="q1-not" value="0">
+                <label class="form-check-label" for="q1-not">
+                    Not at all
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q1" id="q1-several" value="1">
+                <label class="form-check-label" for="q1-several">
+                    Several days
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q1" id="q1-more" value="2">
+                <label class="form-check-label" for="q1-more">
+                    More than half the days
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q1" id="q1-nearly" value="3">
+                <label class="form-check-label" for="q1-nearly">
+                    Nearly every day
+                </label>
+            </div>
+        </div>
+
+        <h2 class="mt-4">Your Support System</h2>
+        <div class="mb-3">
+            <p>2. How often do you feel you have someone to talk to or rely on for support?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" id="q2-not" value="0">
+                <label class="form-check-label" for="q2-not">
+                    Never
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" id="q2-some" value="1">
+                <label class="form-check-label" for="q2-some">
+                    Sometimes
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" id="q2-often" value="2">
+                <label class="form-check-label" for="q2-often">
+                    Often
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" id="q2-always" value="3">
+                <label class="form-check-label" for="q2-always">
+                    Always
+                </label>
+            </div>
+        </div>
+        
+        <p class="mt-5 text-center text-muted">This is not a diagnostic tool. Please consult a healthcare professional for personalized advice.</p>
+
+    </div>
+</div>
+{% endblock %}

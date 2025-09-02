@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📅 My Appointments</h2>
+
+{% if appointments %}
+  <p>Here’s a list of all your upcoming and past appointments:</p>
+  <table class="appointments-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Patient Name</th>
+        <th>Email</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in appointments %}
+      <tr>
+        <td>{{ a.id }}</td>
+        <td>{{ a.name }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.doctor }}</td>
+        <td>{{ a.date }}</td>
+        <td>
+          {% if a.date >= now %}
+            ✅ Upcoming
+          {% else %}
+            ⏳ Completed
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No appointments found. <a href="{{ url_for('book_appointment') }}">Book one now!</a></p>
+{% endif %}
+
+<section class="appointment-tips">
+  <h3>💡 Health Tips Before Your Visit</h3>
+  <ul>
+    <li>Arrive 10–15 minutes early ⏰ to avoid rushing.</li>
+    <li>Bring a list of your current medications 💊.</li>
+    <li>Write down your symptoms 📝 to discuss with the doctor.</li>
+    <li>Don’t hesitate to ask questions — your health matters! ❤️</li>
+  </ul>
+</section>
+{% endblock %}

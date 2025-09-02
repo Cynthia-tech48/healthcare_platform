@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📊 Your Assessment Results</h2>
+
+<p>Thank you for completing the self-assessment. Here’s your quick reflection:</p>
+
+<p><b>Total Score:</b> {{ total_score }}</p>
+
+{% if total_score <= 2 %}
+  <p>✅ Your responses suggest minimal or no signs of stress or low mood. Keep maintaining healthy habits!</p>
+{% elif total_score <= 4 %}
+  <p>⚠️ You may be experiencing mild symptoms. Try adding regular exercise, proper sleep, and mindfulness to your routine.</p>
+{% elif total_score <= 6 %}
+  <p>⚠️ Your score suggests moderate symptoms. Consider reaching out to a trusted friend or a healthcare provider for support.</p>
+{% else %}
+  <p>🚨 Your responses indicate significant symptoms. It is strongly recommended that you seek professional help.</p>
+{% endif %}
+
+<hr>
+<h3>💡 Wellness Reminder</h3>
+<p>Even small actions, like taking a 10-minute walk, journaling, or talking with someone you trust, can make a big difference.</p>
+
+<a href="{{ url_for('self_assessment') }}">🔄 Take Assessment Again</a>
+{% endblock %}

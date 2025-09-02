@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Resources & Recommendations</h2>
+<p>Here are some personalized suggestions based on your profile and recent assessments.</p>
+
+<section>
+  <h3>For you, {{ profile.display_name if profile else 'Friend' }}</h3>
+  {% if suggestions %}
+    <ul>
+      {% for s in suggestions %}
+        <li><strong>{{ s.title }}</strong> — {{ s.desc }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No personalized suggestions available yet. Update your profile to see tailored resources.</p>
+  {% endif %}
+</section>
+
+<section>
+  <h3>General Self-care Tips</h3>
+  <ul>
+    <li>Take short breaks during work and practice 4-4-8 breathing for stress relief.</li>
+    <li>Keep a consistent sleep schedule and limit screen use before bedtime.</li>
+    <li>Stay connected with friends or family — social contact supports mental health.</li>
+  </ul>
+</section>
+{% endblock %}

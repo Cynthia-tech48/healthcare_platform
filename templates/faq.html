@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>FAQ</h2>
+
+<dl>
+  <dt><b>How do I book an appointment?</b></dt>
+  <dd>Go to the <a href="{{ url_for('book_appointment') }}">Book Appointment</a> page.</dd>
+
+  <dt><b>Can I ask a doctor questions?</b></dt>
+  <dd>Yes, use the <a href="{{ url_for('ask_doctor') }}">Ask a Doctor</a> page.</dd>
+
+  <dt><b>Is this platform secure?</b></dt>
+  <dd>Yes, all patient data is encrypted.</dd>
+</dl>
+{% endblock %}

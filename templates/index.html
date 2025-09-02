@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-banner">
+    <h2>Welcome to the Healthcare Platform 🏥</h2>
+    <p>Book appointments, consult doctors, track your health, and improve your lifestyle online.</p>
+    
+<img src="{{ url_for('static', filename='images/4001.webp') }}" alt="Healthcare Banner">
+</div>
+
+<div class="features">
+    <h3>Our Features</h3>
+    <ul>
+        <li>✅ Appointment Booking</li>
+        <li>✅ Doctor-Patient Messaging</li>
+        <li>✅ Medical History Tracking</li>
+        <li>✅ Prescription Management</li>
+        <li>✅ Telemedicine Integration</li>
+        <li>✅ Personal Dashboard</li>
+        <li>✅ Healthy Recipe Suggestions</li>
+        <li>✅ Mood Tracking</li>
+    </ul>
+</div>
+
+<div class="cta">
+    <a href="{{ url_for('appointments') }}" class="btn">Book an Appointment Now</a> |
+    <a href="{{ url_for('dashboard') }}" class="btn">Go to Dashboard</a> |
+    <a href="{{ url_for('recipes') }}" class="btn">Explore Recipes</a> |
+    <a href="{{ url_for('mood_tracker') }}" class="btn">Track Mood</a>
+</div>
+{% endblock %}

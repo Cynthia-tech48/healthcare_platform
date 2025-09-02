@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health & Wellness Platform</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>🌱 HEALTH & WELLNESS</h1>
+    <nav>
+  <ul class="navbar">
+    <li><a href="{{ url_for('index') }}">Home</a></li>
+    <li><a href="{{ url_for('about') }}">About</a></li>
+    <li><a href="{{ url_for('videos') }}">Videos</a></li>
+    <li><a href="{{ url_for('articles') }}">Articles</a></li>
+    <li><a href="{{ url_for('recipes') }}">Recipes</a></li>
+    <li><a href="{{ url_for('ask_doctor') }}">Ask Doctor</a></li>
+    <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+    <li><a href="{{ url_for('book_appointment') }}">Book_appointment</a></li
+    <li><a href="{{ url_for('profile') }}">Profile</a></li>
+    <li><a href="{{ url_for('mood_tracker') }}">mood_tracker</a></li>
+    <li><a href="{{ url_for('self_assessment') }}">self_assessment</a></li>
+    <li><a href="{{ url_for('goals') }}">Goals</a></li>
+    <li><a href="{{ url_for('resources') }}">Resources</a></li>
+    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+  </ul>
+</nav>
+
+
+  <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for category, msg in messages %}
+            <p class="flash {{ category }}">{{ msg }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+        {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Health Platform. Stay healthy, stay well 🌿</p>
+  </footer>
+</body>
+</html>

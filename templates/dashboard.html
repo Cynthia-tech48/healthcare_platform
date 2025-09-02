@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Dashboard</h2>
+<div class="dashboard-grid">
+    <div class="profile-summary">
+        <h3>👤 My Profile</h3>
+        {% if profile %}
+        <p><strong>Name:</strong> {{ profile.display_name }}</p>
+        <p><strong>Age:</strong> {{ profile.age }}</p>
+        <p><strong>Gender:</strong> {{ profile.gender }}</p>
+        <p><strong>Notes:</strong> {{ profile.notes }}</p>
+        {% else %}
+        <p>No profile data found. <a href="{{ url_for('profile') }}">Create your profile.</a></p>
+        {% endif %}
+    </div>
+
+    <div class="mood-chart">
+        <h3>😊 My Mood Tracker</h3>
+        <canvas id="moodChart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="dashboard-section">
+        <h3>💡 Quick Health Tips</h3>
+        <ul id="tip-list">
+            {% for suggestion in suggestions %}
+            <li><strong>{{ suggestion.title }}:</strong> {{ suggestion.desc }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<div class="dashboard-section">
+    <h3>📺 Latest Health Videos</h3>
+    <div class="dashboard-videos" id="dashboard-videos-container">
+        </div>
+</div>
+
+<div class="dashboard-section">
+    <h3>📰 Latest Health Articles</h3>
+    <div class="dashboard-articles" id="dashboard-articles-container">
+        </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

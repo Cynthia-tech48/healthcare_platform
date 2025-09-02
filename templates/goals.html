@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Goals & Habits</h2>
+<p>Create goals (daily/weekly) and track completion.</p>
+
+<!-- Goal creation form -->
+<form method="POST" class="form">
+  <label for="title">Goal title</label>
+  <input type="text" id="title" name="title" placeholder="e.g., Walk 30 minutes" required>
+
+  <label for="frequency">Frequency</label>
+  <select id="frequency" name="frequency">
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+  </select>
+
+  <label for="target">Target (optional)</label>
+  <input type="text" id="target" name="target" placeholder="e.g., 30 minutes">
+
+  <button type="submit">Add Goal</button>
+</form>
+
+<!-- List of goals -->
+<section>
+  <h3>Your Goals</h3>
+  <ul>
+    {% for g in goals %}
+      <li>
+        <strong>{{ g.title }}</strong> — <small>{{ g.frequency }}</small>
+        {% if g.target %} — <em>{{ g.target }}</em>{% endif %}
+
+        <!-- Action buttons -->
+        <form method="POST" action="{{ url_for('complete_goal', gid=g.id) }}" style="display:inline">
+          <button type="submit" class="btn" style="background:{{ '#8bd39a' if g.completed else '#22c55e' }}">
+            {{ 'Undo' if g.completed else 'Complete' }}
+          </button>
+        </form>
+
+        <form method="POST" action="{{ url_for('delete_goal', gid=g.id) }}" style="display:inline">
+          <button type="submit" class="btn" style="background:#ff6b6b">Delete</button>
+        </form>
+      </li>
+    {% else %}
+      <li>No goals yet — add one above.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
