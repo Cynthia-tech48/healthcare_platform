@@ -5,9 +5,13 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///health_platform.db'
+
+# Use DATABASE_URL if the host provides it; otherwise use local sqlite.
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL',
+    'sqlite:///health_platform.db'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SERVER_NAME'] = 'localhost:5000'
 
 db = SQLAlchemy(app)
 
@@ -82,23 +86,23 @@ def seed_data():
 
     if not Recipe.query.first():
         recipes = [
-            Recipe(name="Sukuma Wiki and Ugali", summary="A nutrient-dense Kenyan staple. Sukuma Wiki (collard greens) is packed with vitamins A, C, and K, while Ugali provides sustained energy from complex carbohydrates. This is a low-fat and high-fiber meal.", steps="1. For Ugali, bring water to a boil, then slowly stir in maize flour until a firm dough forms. 2. For Sukuma Wiki, heat oil in a pan, add finely chopped onions and garlic. 3. Add the chopped greens and cook until wilted. Season with salt and pepper. 4. Serve the fiber-rich greens alongside a serving of Ugali.", picture_url=url_for('static', filename='images/recipe1.webp')),
-            Recipe(name="Githeri (Maize and Beans)", summary="A wholesome, high-protein vegetarian dish. This one-pot meal is an excellent source of plant-based protein, dietary fiber, and essential minerals, which help promote good digestion and heart health.", steps="1. Sauté onions, garlic, and ginger in a pot. Add chopped tomatoes and cook until they form a thick paste. 2. Stir in pre-boiled maize and beans, then add chopped potatoes and carrots. 3. Add a little water, cover, and simmer until the vegetables are tender.", picture_url=url_for('static', filename='images/recipe2.jpg')),
-            Recipe(name="Kenyan Mahamri", summary="These light, cardamom-spiced pastries are a healthier breakfast option when baked or cooked with less oil. They are a source of carbohydrates for energy and can be served with a high-protein side like beans or eggs.", steps="1. In a bowl, mix flour, sugar, cardamom, and yeast. Add warm coconut milk and knead until a soft dough forms. 2. Let the dough rise for an hour. 3. Roll out the dough, cut into triangles, and shallow fry in healthy oil or bake until golden brown.", picture_url=url_for('static', filename='images/recipe3.jpg')),
-            Recipe(name="Kaimati (Sweet Dumplings)", summary="A delightful treat for special occasions. These dumplings provide a quick source of energy. To make them healthier, use whole wheat flour and a minimal amount of natural sweetener like honey.", steps="1. Mix flour, yeast, salt, and sugar with water to form a thick batter. Let it rise. 2. Drop small spoonfuls of the batter into hot oil and fry until golden. 3. Drizzle the fried dumplings with a minimal amount of honey or a light sugar syrup.", picture_url=url_for('static', filename='images/recipe4.jpg')),
-            Recipe(name="Mukimo", summary="A hearty and fiber-rich dish. The combination of potatoes, maize, and beans offers a balanced mix of carbohydrates, protein, and fiber, making it a highly satisfying and nutritious meal.", steps="1. Boil potatoes, maize, beans, and pumpkin leaves or spinach until soft. 2. Mash the mixture, gradually adding a little reserved water. 3. Season with salt and add some finely chopped spring onions.", picture_url=url_for('static', filename='images/recipe5.jpeg')),
-            Recipe(name="Pilau", summary="A fragrant, flavorful, and healthy rice dish. Pilau is a source of complex carbohydrates and can be made with lean proteins like chicken or vegetables for a well-rounded meal. The spices used are known for their antioxidant properties.", steps="1. Sauté onions in a pot until caramelized. Add garlic and ginger paste, then stir in Pilau spice mix. 2. Add lean meat or vegetables and brown them. 3. Stir in basmati rice, then add hot water or broth. Cook until the water is absorbed.", picture_url=url_for('static', filename='images/recipe6.jpg')),
-            Recipe(name="Matoke (Green Banana Stew)", summary="This comforting stew is an excellent source of potassium and other minerals from the green bananas. When prepared with a variety of vegetables and a light tomato base, it's a very low-fat, high-fiber meal.", steps="1. Sauté onions and garlic in a pot. Add chopped tomatoes and cook until they break down. 2. Add peeled and chopped green bananas, potatoes, and carrots. 3. Pour in broth and simmer until the bananas are tender and the stew has thickened.", picture_url=url_for('static', filename='images/recipe7.jpg')),
-            Recipe(name="Kenyan Chicken Curry", summary="A lean and flavorful curry. Made with skinless chicken breast and cooked in a light coconut milk sauce, this dish is a fantastic source of protein. The spices add a flavorful punch without the need for excessive fat.", steps="1. Sauté onions, garlic, and ginger until soft. Add curry powder and cook for a minute. 2. Add chicken pieces and brown them. 3. Stir in chopped tomatoes, then coconut milk. Simmer until the chicken is cooked through.", picture_url=url_for('static', filename='images/recipe8.jpg')),
-            Recipe(name="Kachumbari Salad", summary="A simple, refreshing, and highly nutritious salad. This is a powerful antioxidant booster with vitamins from the tomatoes and onions. The chili adds a metabolism-boosting kick, while the lime juice provides a healthy dose of vitamin C.", steps="1. Finely dice tomatoes, red onions, and a green chili (optional). 2. Place all the chopped ingredients in a bowl. 3. Squeeze fresh lime juice over the salad and toss gently to combine. 4. Serve immediately.", picture_url=url_for('static', filename='images/recipe9.jpg')),
-            Recipe(name="Avocado Salad", summary="A light, high-fat, and nutrient-dense salad. Avocados are rich in healthy monounsaturated fats, which are great for heart health. This salad is also a good source of fiber and vitamins from the fresh vegetables.", steps="1. Chop ripe avocados and cherry tomatoes into bite-sized pieces. 2. In a small bowl, whisk together the juice of one lemon, a tablespoon of olive oil, salt, and black pepper. 3. Gently combine the chopped avocado and tomatoes in a large bowl. 4. Pour the dressing over the salad and toss to coat. 5. Serve immediately.", picture_url=url_for('static', filename='images/recipe10.jpg'))
+            Recipe(name="Sukuma Wiki and Ugali", summary="A nutrient-dense Kenyan staple. Sukuma Wiki (collard greens) is packed with vitamins A, C, and K, while Ugali provides sustained energy from complex carbohydrates. This is a low-fat and high-fiber meal.", steps="1. For Ugali, bring water to a boil, then slowly stir in maize flour until a firm dough forms. 2. For Sukuma Wiki, heat oil in a pan, add finely chopped onions and garlic. 3. Add the chopped greens and cook until wilted. Season with salt and pepper. 4. Serve the fiber-rich greens alongside a serving of Ugali.", picture_url="/static/images/recipe1.webp"),
+            Recipe(name="Githeri (Maize and Beans)", summary="A wholesome, high-protein vegetarian dish. This one-pot meal is an excellent source of plant-based protein, dietary fiber, and essential minerals, which help promote good digestion and heart health.", steps="1. Sauté onions, garlic, and ginger in a pot. Add chopped tomatoes and cook until they form a thick paste. 2. Stir in pre-boiled maize and beans, then add chopped potatoes and carrots. 3. Add a little water, cover, and simmer until the vegetables are tender.", picture_url="/static/images/recipe2.jpg"),
+            Recipe(name="Kenyan Mahamri", summary="These light, cardamom-spiced pastries are a healthier breakfast option when baked or cooked with less oil. They are a source of carbohydrates for energy and can be served with a high-protein side like beans or eggs.", steps="1. In a bowl, mix flour, sugar, cardamom, and yeast. Add warm coconut milk and knead until a soft dough forms. 2. Let the dough rise for an hour. 3. Roll out the dough, cut into triangles, and shallow fry in healthy oil or bake until golden brown.", picture_url="/static/images/recipe3.jpg"),
+            Recipe(name="Kaimati (Sweet Dumplings)", summary="A delightful treat for special occasions. These dumplings provide a quick source of energy. To make them healthier, use whole wheat flour and a minimal amount of natural sweetener like honey.", steps="1. Mix flour, yeast, salt, and sugar with water to form a thick batter. Let it rise. 2. Drop small spoonfuls of the batter into hot oil and fry until golden. 3. Drizzle the fried dumplings with a minimal amount of honey or a light sugar syrup.", picture_url="/static/images/recipe4.jpg"),
+            Recipe(name="Mukimo", summary="A hearty and fiber-rich dish. The combination of potatoes, maize, and beans offers a balanced mix of carbohydrates, protein, and fiber, making it a highly satisfying and nutritious meal.", steps="1. Boil potatoes, maize, beans, and pumpkin leaves or spinach until soft. 2. Mash the mixture, gradually adding a little reserved water. 3. Season with salt and add some finely chopped spring onions.", picture_url="/static/images/recipe5.jpeg"),
+            Recipe(name="Pilau", summary="A fragrant, flavorful, and healthy rice dish. Pilau is a source of complex carbohydrates and can be made with lean proteins like chicken or vegetables for a well-rounded meal. The spices used are known for their antioxidant properties.", steps="1. Sauté onions in a pot until caramelized. Add garlic and ginger paste, then stir in Pilau spice mix. 2. Add lean meat or vegetables and brown them. 3. Stir in basmati rice, then add hot water or broth. Cook until the water is absorbed.", picture_url="/static/images/recipe6.jpg"),
+            Recipe(name="Matoke (Green Banana Stew)", summary="This comforting stew is an excellent source of potassium and other minerals from the green bananas. When prepared with a variety of vegetables and a light tomato base, it's a very low-fat, high-fiber meal.", steps="1. Sauté onions and garlic in a pot. Add chopped tomatoes and cook until they break down. 2. Add peeled and chopped green bananas, potatoes, and carrots. 3. Pour in broth and simmer until the bananas are tender and the stew has thickened.", picture_url="/static/images/recipe7.jpg"),
+            Recipe(name="Kenyan Chicken Curry", summary="A lean and flavorful curry. Made with skinless chicken breast and cooked in a light coconut milk sauce, this dish is a fantastic source of protein. The spices add a flavorful punch without the need for excessive fat.", steps="1. Sauté onions, garlic, and ginger until soft. Add curry powder and cook for a minute. 2. Add chicken pieces and brown them. 3. Stir in chopped tomatoes, then coconut milk. Simmer until the chicken is cooked through.", picture_url="/static/images/recipe8.jpg"),
+            Recipe(name="Kachumbari Salad", summary="A simple, refreshing, and highly nutritious salad. This is a powerful antioxidant booster with vitamins from the tomatoes and onions. The chili adds a metabolism-boosting kick, while the lime juice provides a healthy dose of vitamin C.", steps="1. Finely dice tomatoes, red onions, and a green chili (optional). 2. Place all the chopped ingredients in a bowl. 3. Squeeze fresh lime juice over the salad and toss gently to combine. 4. Serve immediately.", picture_url="/static/images/recipe9.jpg"),
+            Recipe(name="Avocado Salad", summary="A light, high-fat, and nutrient-dense salad. Avocados are rich in healthy monounsaturated fats, which are great for heart health. This salad is also a good source of fiber and vitamins from the fresh vegetables.", steps="1. Chop ripe avocados and cherry tomatoes into bite-sized pieces. 2. In a small bowl, whisk together the juice of one lemon, a tablespoon of olive oil, salt, and black pepper. 3. Gently combine the chopped avocado and tomatoes in a large bowl. 4. Pour the dressing over the salad and toss to coat. 5. Serve immediately.", picture_url="/static/images/recipe10.jpg"),
         ]
         db.session.add_all(recipes)
 
     db.session.commit()
 
 def create_and_seed():
-    db.drop_all()
+    # do not drop existing tables (keeps data safe in production)
     db.create_all()
     seed_data()
 
@@ -117,6 +121,33 @@ def about():
 @app.route('/videos')
 def videos():
     return render_template('videos.html')
+# Add this near your other imports
+from flask import jsonify
+
+# ----------------------------
+# API route for videos
+# ----------------------------
+@app.route('/api/videos')
+def get_videos():
+    videos = [
+        {
+            "title": "10 Minute Morning Yoga",
+            "youtube_id": "abcd1234",
+            "description": "Start your day with energy using this short yoga session."
+        },
+        {
+            "title": "Healthy Eating Tips",
+            "youtube_id": "efgh5678",
+            "description": "Learn how to maintain a balanced diet for better health."
+        },
+        {
+            "title": "Mental Health Awareness",
+            "youtube_id": "ijkl9101",
+            "description": "Understanding the importance of mental well-being."
+        }
+    ]
+    return jsonify(videos)
+
 
 @app.route('/articles')
 def articles():
@@ -275,4 +306,4 @@ def api_recipes():
 if __name__ == '__main__':
     with app.app_context():
         create_and_seed()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=True)
